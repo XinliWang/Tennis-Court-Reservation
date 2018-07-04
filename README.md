@@ -1,5 +1,5 @@
 # Tennis-Reservation
-
+  
 ## Run the app locally
 python version: `3.6`
 
@@ -7,4 +7,8 @@ python version: `3.6`
 
 2. `brew install chromedriver`
 
-3. `python tennis.py`
+3. `create account.txt`
+
+    * \<username\> \<password\>
+
+4. `python tennis.py`
