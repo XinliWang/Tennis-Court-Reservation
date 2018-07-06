@@ -26,7 +26,7 @@ for line in file_object:
 	username = strs[0]
 	password = strs[1]
 
-def reserve(datepickertag, tomorrow, reserveid, starttime, endtime):
+def reserve(tomorrow, reserveid, starttime, endtime):
 	# incognito mode
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_argument("--incognito")
@@ -50,11 +50,10 @@ def reserve(datepickertag, tomorrow, reserveid, starttime, endtime):
 	daystr = str(tomorrow.day);
 	datetofind = "//*[contains(text(), '" + daystr + "')]"
 
-	datepick = driver.find_elements_by_class_name(datepickertag) # ui-datepicker-week-end
-	for parent in datepick:
-		child = parent.find_elements_by_xpath(datetofind)
-		if(len(child) > 0) :
-			child[3].click()
+	datepick = driver.find_elements_by_xpath(datetofind)
+	for ch in datepick:
+		if(ch.text == daystr):
+			ch.click()
 			break
 
 	time.sleep(3)
@@ -77,15 +76,15 @@ tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
 weekno = tomorrow.weekday()
 
-datepickertag = 'ui-datepicker-week-end'
+# datepickertag = 'ui-datepicker-week-end'
 
 if weekno < 5:
-    datepickertag = 'ui-state-default'
-    reserve(datepickertag, tomorrow, 10, '7:00 PM', '8:00 PM')
-    reserve(datepickertag, tomorrow, 12, '8:00 PM', '9:00 PM')
+    # datepickertag = 'ui-state-default'
+    reserve(tomorrow, 10, '7:00 PM', '8:00 PM')
+    reserve(tomorrow, 12, '8:00 PM', '9:00 PM')
 else:
-	reserve(datepickertag, tomorrow, 11, '7:00 PM', '8:00 PM')
-	reserve(datepickertag, tomorrow, 13, '8:00 PM', '9:00 PM')
+	reserve(tomorrow, 11, '7:00 PM', '8:00 PM')
+	reserve(tomorrow, 13, '8:00 PM', '9:00 PM')
 
 
 
