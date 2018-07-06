@@ -5,6 +5,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException        
 
 from selenium.webdriver.support.ui import Select
+import threading
+
 import time
 import datetime
 
@@ -71,6 +73,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	driver.quit()
 
 
+thread_list = []
 
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
@@ -79,12 +82,33 @@ weekno = tomorrow.weekday()
 # datepickertag = 'ui-datepicker-week-end'
 
 if weekno < 5:
+<<<<<<< HEAD
     # datepickertag = 'ui-state-default'
     reserve(tomorrow, 10, '7:00 PM', '8:00 PM')
     reserve(tomorrow, 12, '8:00 PM', '9:00 PM')
 else:
 	reserve(tomorrow, 11, '7:00 PM', '8:00 PM')
 	reserve(tomorrow, 13, '8:00 PM', '9:00 PM')
+=======
+    datepickertag = 'ui-state-default'
+    t = threading.Thread(target=reserve, args=(datepickertag, tomorrow, 10, '7:00 PM', '8:00 PM'))
+    thread_list.append(t)
+    t = threading.Thread(target=reserve, args=(datepickertag, tomorrow, 12, '8:00 PM', '9:00 PM'))
+    thread_list.append(t)
+    # reserve(datepickertag, tomorrow, 10, '7:00 PM', '8:00 PM')
+    # reserve(datepickertag, tomorrow, 12, '8:00 PM', '9:00 PM')
+else:
+	t = threading.Thread(target=reserve, args=(datepickertag, tomorrow, 11, '7:00 PM', '8:00 PM'))
+	thread_list.append(t)
+	t = threading.Thread(target=reserve, args=(datepickertag, tomorrow, 13, '8:00 PM', '9:00 PM'))
+	thread_list.append(t)	# reserve(datepickertag, tomorrow, 11, '7:00 PM', '8:00 PM')
+	# reserve(datepickertag, tomorrow, 13, '8:00 PM', '9:00 PM')
+
+>>>>>>> ec3bc6a96c5ec3b590818c145a6f5384435a338f
 
 
+for thread in thread_list:
+	thread.start()
+for thread in thread_list:
+	thread.join()
 
