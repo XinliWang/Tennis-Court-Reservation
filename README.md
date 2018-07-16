@@ -3,12 +3,16 @@
 ## Run the app locally
 python version: `3.6`
 
-1. `brew install selenium-server-standalone`
+1. `virtualenv tennis`
 
-2. `brew install chromedriver`
+2. `source tennis/bin/activate'
 
-3. `create account.txt`
+3. `pip install selenium`
+
+3. `pip install chromedriver`
+
+4. `create account.txt`
 
     * \<username\> \<password\>
 
-4. `python tennis.py`
+5. `python tennis.py`
