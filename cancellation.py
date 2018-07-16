@@ -43,19 +43,33 @@ def cancel():
 	submit = driver.find_element_by_id('submit-sign-in')
 	submit.submit()
 
+	today = datetime.date.today()
+
+	datestr = today.strftime('%B %d, %Y')
+
 	elems = driver.find_elements_by_class_name('reservation-info')
 
-	for elem in elems:
-		# print(elem.text)
-		
-		tag = elem.find_element_by_tag_name('a')
-		cancelbutton = driver.find_elements_by_id(tag.get_attribute('id'))
+	while(len(elems) != 0):
+		n = len(elems)
+		for elem in elems:
+			if(datestr in elem.text):
+				tag = elem.find_element_by_tag_name('a')
+				cancelbutton = driver.find_elements_by_id(tag.get_attribute('id'))
+				
+				for button in cancelbutton:
+					if(button.text == 'cancel reservation'):
+						# print/(button.text)
+						button.click()
+						submit = driver.find_element_by_id('cancel-resv-btn')
+						submit.submit()
+						break
 
-		for button in cancelbutton:
-			if(button.text == 'cancel reservation'):
-				button.click()
+			n-=1
+			break
+		if(n == 0):
+			break
+		elems = driver.find_elements_by_class_name('reservation-info')
 
-	
 	driver.quit()
 
 
