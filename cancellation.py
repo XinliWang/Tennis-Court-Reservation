@@ -63,9 +63,8 @@ def cancel():
 						submit = driver.find_element_by_id('cancel-resv-btn')
 						submit.submit()
 						break
-
+				break
 			n-=1
-			break
 		if(n == 0):
 			break
 		elems = driver.find_elements_by_class_name('reservation-info')
