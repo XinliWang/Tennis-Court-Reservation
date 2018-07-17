@@ -1,5 +1,5 @@
 # Tennis-Reservation
-  
+
 ## Run the app locally
 python version: `3.6`
 
@@ -9,10 +9,10 @@ python version: `3.6`
 
 3. `pip install selenium`
 
-3. `pip install chromedriver`
+4. `pip install chromedriver`
 
-4. `create account.txt`
+5. `create account.txt`
 
     * \<username\> \<password\>
 
-5. `python tennis.py`
+6. `python tennis.py`
