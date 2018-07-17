@@ -33,15 +33,7 @@ import datetime
 # 		print ("time:")
 
 
-scheduler = BackgroundScheduler()
-# method is trigger everyday at 12:01 am
-scheduler.add_job(self.printTest,
-				  'cron',
-				  day_of_week='mon-sun',
-				  hour=19, minute=5,
-				  end_date='2018-10-30'
-				  )
-scheduler.start()
+
 
 def fillform(id, value, driver):
 	elem = driver.find_element_by_id(id)
@@ -53,13 +45,15 @@ def fillform(id, value, driver):
 # 	actions.send_keys(Keys.TAB * N)
 # 	actions.perform()
 
-file_object = open("account.txt", "r")
-username = ''
-password = ''
-for line in file_object:
-	strs = line.split()
-	username = strs[0]
-	password = strs[1]
+
+
+# file_object = open("account.txt", "r")
+# username = ''
+# password = ''
+# for line in file_object:
+# 	strs = line.split()
+# 	username = strs[0]
+# 	password = strs[1]
 
 def reserve(tomorrow, reserveid, starttime, endtime):
 	# incognito mode
@@ -136,4 +130,19 @@ def runReserve():
 		thread.join()
 
 def printTest():
-	 print ("time:")
+	 print "time:"
+
+scheduler = BackgroundScheduler()
+# method is trigger everyday at 12:01 am
+scheduler.add_job(runReserve,
+				  'cron',
+				  day_of_week='mon-sun',
+				  hour=20, minute=50,
+				  end_date='2018-10-30'
+				  )
+# scheduler.add_job(printTest,'interval', seconds=2)
+
+scheduler.start()
+
+# while True:
+#     time.sleep(1)
