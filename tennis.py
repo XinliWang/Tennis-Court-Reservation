@@ -97,6 +97,8 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 
 	submit = driver.find_element_by_id('submit-new-reservation')
 	submit.submit()
+
+	print(starttime + " " + endtime + " done")
 	driver.quit()
 
 
