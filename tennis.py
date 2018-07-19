@@ -62,15 +62,20 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	chrome_options.add_argument("--disable-dev-shm-usage")
 	chrome_options.add_argument('--headless')
 	chrome_options.add_argument('--no-sandbox')
+
+	print("Read account information successfully")
 	# open chrome
 	driver = webdriver.Chrome(chrome_options=chrome_options)
 	driver.implicitly_wait(15)
 	driver.get("***REMOVED***")
 
+	print("open the url successfully")
 	fillform('UserName', username, driver)
 	fillform('password', password, driver)
 	submit = driver.find_element_by_id('submit-sign-in')
 	submit.submit()
+
+	print("login successfully")
 
 	elems = driver.find_elements_by_id('reserve')
 	elems[reserveid].click() # weekend # 10 court 1 11 weekend 12 court 2 13 weekend
@@ -86,7 +91,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 		if(ch.text == daystr):
 			ch.click()
 			break
-
+	
 	time.sleep(3)
 
 	start = driver.find_element_by_id('SelStartTime')
