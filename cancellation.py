@@ -71,7 +71,7 @@ def cancel():
 		if(n == 0):
 			break
 		elems = driver.find_elements_by_class_name('reservation-info')
-
+	print("cancellation success")
 	driver.quit()
 
 
