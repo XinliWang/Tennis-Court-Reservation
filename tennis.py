@@ -59,7 +59,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	# incognito mode
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_argument("--incognito")
-
+	chrome_options.add_argument("--disable-dev-shm-usage")
 	# open chrome
 	driver = webdriver.Chrome(chrome_options=chrome_options)
 	driver.implicitly_wait(15)
