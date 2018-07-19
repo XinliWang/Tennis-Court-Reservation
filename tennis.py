@@ -69,7 +69,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	driver.implicitly_wait(15)
 	driver.get("***REMOVED***")
 
-	print("open the url successfully")
+	print("open new url successfully")
 	fillform('UserName', username, driver)
 	fillform('password', password, driver)
 	submit = driver.find_element_by_id('submit-sign-in')
@@ -109,8 +109,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	if(len(success) == 1):
 		print(starttime + " " + endtime + " not available")
 	else:
-		print("success")
-	print(starttime + " " + endtime + " done")
+		print(starttime + " " + endtime + " booked")
 	driver.quit()
 
 
