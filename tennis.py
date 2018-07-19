@@ -60,7 +60,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_argument("--incognito")
 	chrome_options.add_argument("--disable-dev-shm-usage")
-	chrome_options.add_argument('--headless')
+	# chrome_options.add_argument('--headless')
 	chrome_options.add_argument('--no-sandbox')
 
 	print("Read account information successfully")
@@ -91,7 +91,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 		if(ch.text == daystr):
 			ch.click()
 			break
-	
+
 	time.sleep(3)
 
 	start = driver.find_element_by_id('SelStartTime')
@@ -105,6 +105,11 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	submit = driver.find_element_by_id('submit-new-reservation')
 	submit.submit()
 
+	success = driver.find_elements_by_xpath("//*[contains(text(), 'A reservation already exists during this time period.')]")
+	if(len(success) == 1):
+		print(starttime + " " + endtime + " not available")
+	else:
+		print("success")
 	print(starttime + " " + endtime + " done")
 	driver.quit()
 
