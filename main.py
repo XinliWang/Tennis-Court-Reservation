@@ -4,7 +4,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import time
 
 scheduler = BackgroundScheduler()
-# method is trigger everyday at 12:01 am
+# method is trigger everyday at 12:00 am
 scheduler.add_job(tennis.runReserve,
 				  'cron',
 				  day_of_week='mon-sun',
