@@ -2,7 +2,6 @@ FROM debian:jessie
 RUN apt-get update; apt-get clean
 RUN apt-get install -y python-pip
 RUN apt-get install -y wget xvfb unzip
-RUN apt-get install -y libxss1 libappindicator1 libindicator7
 
 # Set the timezone.
 RUN echo "America/New_York" > /etc/timezone
