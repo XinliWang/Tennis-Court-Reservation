@@ -74,7 +74,6 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	fillform('password', password, driver)
 	submit = driver.find_element_by_id('submit-sign-in')
 	submit.submit()
-
 	print("login successfully")
 
 	elems = driver.find_elements_by_id('reserve')
