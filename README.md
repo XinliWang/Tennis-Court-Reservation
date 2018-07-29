@@ -25,4 +25,4 @@ python version: `3.6`
 
 1. `docker build -t tennis .`
 
-2. `docker run tennis`
+2. `docker run -d tennis`
