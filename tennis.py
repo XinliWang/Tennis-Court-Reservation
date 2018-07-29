@@ -13,25 +13,6 @@ import time
 import datetime
 
 
-# class PeriodicJob:
-#     def __init__(self, app):
-#         self.app = app
-#         with app.app_context():
-#             # ensure scheduler only runs in child process not main process as well
-#             if not app.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-#                 scheduler = BackgroundScheduler()
-# 				# method is trigger everyday at 12:01 am
-#                 scheduler.add_job(self.printTest,
-#                                   'cron',
-# 								  day_of_week='mon-sun',
-# 								  hour=18, minute=52,
-# 								  end_date='2018-10-30'
-#                                   )
-#                 scheduler.start()
-#
-#     def printTest():
-# 		print ("time:")
-
 
 
 
@@ -40,22 +21,23 @@ def fillform(id, value, driver):
 	elem.clear()
 	elem.send_keys(value)
 
-# def tabs(N, driver):
-# 	actions = ActionChains(driver)
-# 	actions.send_keys(Keys.TAB * N)
-# 	actions.perform()
 
-
-
-# file_object = open("account.txt", "r")
-# username = ''
-# password = ''
-# for line in file_object:
-# 	strs = line.split()
-# 	username = strs[0]
-# 	password = strs[1]
 
 def reserve(tomorrow, reserveid, starttime, endtime):
+	# read username and password
+	file_object = open("account.txt", "r")
+	username = ''
+	password = ''
+	url = ''
+	for line in file_object:
+		strs = line.split('=')
+		if strs[0] == 'username':
+			username = strs[1]
+		elif strs[0] == 'password':
+			password = strs[1]
+		elif strs[0] == 'url':
+			url = strs[1]
+
 	# incognito mode
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_argument("--incognito")
@@ -67,7 +49,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	# open chrome
 	driver = webdriver.Chrome(chrome_options=chrome_options)
 	driver.implicitly_wait(15)
-	driver.get("***REMOVED***")
+	driver.get(url)
 
 	print("open new url successfully")
 	fillform('UserName', username, driver)

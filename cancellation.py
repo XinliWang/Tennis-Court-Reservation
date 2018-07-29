@@ -15,31 +15,33 @@ def fillform(id, value, driver):
 	elem.clear()
 	elem.send_keys(value)
 
-# def tabs(N, driver):
-# 	actions = ActionChains(driver) 
-# 	actions.send_keys(Keys.TAB * N)
-# 	actions.perform()
-
-file_object = open("account.txt", "r")
-username = ''
-password = ''
-for line in file_object:
-	strs = line.split()
-	username = strs[0]
-	password = strs[1]
 
 def cancel():
+	# read username and password
+	file_object = open("account.txt", "r")
+	username = ''
+	password = ''
+	url = ''
+	for line in file_object:
+		strs = line.split('=')
+		if strs[0] == 'username':
+			username = strs[1]
+		elif strs[0] == 'password':
+			password = strs[1]
+		elif strs[0] == 'url':
+			url = strs[1]
+
 	# incognito mode
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_argument("--incognito")
 	chrome_options.add_argument("--disable-dev-shm-usage")
 	chrome_options.add_argument('--headless')
 	chrome_options.add_argument('--no-sandbox')
-	
+
 	# open chrome
 	driver = webdriver.Chrome(chrome_options=chrome_options)
 	driver.implicitly_wait(15)
-	driver.get("***REMOVED***")
+	driver.get(url)
 
 	fillform('UserName', username, driver)
 	fillform('password', password, driver)

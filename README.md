@@ -5,8 +5,10 @@ python version: `3.6`
 
 1. `create account.txt`
 
-    * \<username\> \<password\>
-    
+  - username = \<username\>
+  - password = \<password\>
+  - url = \<url\>
+
 2. `virtualenv tennis`
 
 3. `source tennis/bin/activate`
