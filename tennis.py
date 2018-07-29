@@ -31,6 +31,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	url = ''
 	for line in file_object:
 		strs = line.split('=')
+		strs = list(map(lambda s: s.strip(), strs))
 		if strs[0] == 'username':
 			username = strs[1]
 		elif strs[0] == 'password':
