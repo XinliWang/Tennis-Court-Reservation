@@ -43,7 +43,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_argument("--incognito")
 	chrome_options.add_argument("--disable-dev-shm-usage")
-	chrome_options.add_argument('--headless')
+	# chrome_options.add_argument('--headless')
 	chrome_options.add_argument('--no-sandbox')
 
 	print("Read account information successfully")
@@ -66,6 +66,9 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	elem.click()
 
 	daystr = str(tomorrow.day);
+	if(tomorrow.day == 1):
+		n = driver.find_elements_by_class_name('ui-icon-circle-triangle-e')
+		n[0].click()
 	datetofind = "//*[contains(text(), '" + daystr + "')]"
 
 	datepick = driver.find_elements_by_xpath(datetofind)
