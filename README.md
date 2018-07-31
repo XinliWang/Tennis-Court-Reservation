@@ -1,4 +1,6 @@
 # Tennis-Reservation
+## Description
+This application is designed for tennis court reservation online.  The tennis court will be reserved every day at specific time automatically.
 
 ## Run the app locally
 python version: `3.6`
@@ -23,4 +25,4 @@ python version: `3.6`
 
 1. `docker build -t tennis .`
 
-2. `docker run tennis`
+2. `docker run -d tennis`
