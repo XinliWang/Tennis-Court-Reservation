@@ -11,8 +11,7 @@ import datetime
 
 import time
 import datetime
-
-
+import send
 
 
 
@@ -29,6 +28,9 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	username = ''
 	password = ''
 	url = ''
+	email = ''
+	emailpassword = ''
+	target = []
 	for line in file_object:
 		strs = line.split('=')
 		strs = list(map(lambda s: s.strip(), strs))
@@ -38,7 +40,12 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 			password = strs[1]
 		elif strs[0] == 'url':
 			url = strs[1]
-
+		elif strs[0] == 'email':
+			email = strs[1]
+		elif strs[0] == 'emailpassword':
+			emailpassword = strs[1]
+		elif strs[0] == 'target':
+			target = list(map(lambda s: s.strip(),strs[1].split(',')))
 	# incognito mode
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_argument("--incognito")
@@ -91,10 +98,11 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	submit.submit()
 
 	success = driver.find_elements_by_xpath("//*[contains(text(), 'A reservation already exists during this time period.')]")
+	court = 1 if reserveid == 10 or reserveid == 11 else 2
 	if(len(success) == 1):
-		print(starttime + " " + endtime + " not available")
+		send.send(email, emailpassword, target, ("\ncourt " + str(court) + ": " + starttime + " " + endtime + " not available"))
 	else:
-		print(starttime + " " + endtime + " booked")
+		send.send(email, emailpassword, target, ("\ncourt " + str(court) + ": " + starttime + " " + endtime + " reserved"))
 	driver.quit()
 
 
