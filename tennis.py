@@ -12,6 +12,9 @@ import datetime
 import time
 import datetime
 import send
+import logging
+
+logging.basicConfig(filename='tennis.log',level=logging.INFO)
 
 
 
@@ -19,8 +22,6 @@ def fillform(id, value, driver):
 	elem = driver.find_element_by_id(id)
 	elem.clear()
 	elem.send_keys(value)
-
-
 
 def reserve(tomorrow, reserveid, starttime, endtime):
 	# read username and password
@@ -46,6 +47,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 			emailpassword = strs[1]
 		elif strs[0] == 'target':
 			target = list(map(lambda s: s.strip(),strs[1].split(',')))
+	
 	# incognito mode
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_argument("--incognito")
@@ -53,18 +55,18 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	chrome_options.add_argument('--headless')
 	chrome_options.add_argument('--no-sandbox')
 
-	print("Read account information successfully")
 	# open chrome
 	driver = webdriver.Chrome(chrome_options=chrome_options)
 	driver.implicitly_wait(15)
 	driver.get(url)
 
-	print("open new url successfully")
+	logging.info(str(threading.current_thread()) + " open: " + url)
+
 	fillform('UserName', username, driver)
 	fillform('password', password, driver)
 	submit = driver.find_element_by_id('submit-sign-in')
 	submit.submit()
-	print("login successfully")
+	logging.info(str(threading.current_thread()) + " signin " + username + " successfully")
 
 	elems = driver.find_elements_by_id('reserve')
 	elems[reserveid].click() # weekend # 10 court 1 11 weekend 12 court 2 13 weekend
@@ -100,8 +102,10 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	success = driver.find_elements_by_xpath("//*[contains(text(), 'A reservation already exists during this time period.')]")
 	court = 1 if reserveid == 10 or reserveid == 11 else 2
 	if(len(success) == 1):
+		logging.info(str(threading.current_thread()) + " court " + str(court) + ": " + starttime + " " + endtime + " not available")
 		send.send(email, emailpassword, target, ("\ncourt " + str(court) + ": " + starttime + " " + endtime + " not available"))
 	else:
+		logging.info(str(threading.current_thread()) + " court " + str(court) + ": " + starttime + " " + endtime + " reserved")
 		send.send(email, emailpassword, target, ("\ncourt " + str(court) + ": " + starttime + " " + endtime + " reserved"))
 	driver.quit()
 

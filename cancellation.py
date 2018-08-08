@@ -9,6 +9,10 @@ import threading
 
 import time
 import datetime
+import send
+import logging
+
+logging.basicConfig(filename='tennis.log',level=logging.INFO)
 
 def fillform(id, value, driver):
 	elem = driver.find_element_by_id(id)
@@ -31,6 +35,12 @@ def cancel():
 			password = strs[1]
 		elif strs[0] == 'url':
 			url = strs[1]
+		elif strs[0] == 'email':
+			email = strs[1]
+		elif strs[0] == 'emailpassword':
+			emailpassword = strs[1]
+		elif strs[0] == 'target':
+			target = list(map(lambda s: s.strip(),strs[1].split(',')))
 
 	# incognito mode
 	chrome_options = webdriver.ChromeOptions()
@@ -44,10 +54,14 @@ def cancel():
 	driver.implicitly_wait(15)
 	driver.get(url)
 
+	logging.info(str(threading.current_thread()) + " signin " + username + " successfully")
+
 	fillform('UserName', username, driver)
 	fillform('password', password, driver)
 	submit = driver.find_element_by_id('submit-sign-in')
 	submit.submit()
+
+	logging.info(str(threading.current_thread()) + " signin " + username + " successfully")
 
 	today = datetime.date.today()
 
@@ -69,14 +83,13 @@ def cancel():
 						submit = driver.find_element_by_id('cancel-resv-btn')
 						submit.submit()
 						break
+				logging.info(str(threading.current_thread()) +  datstr + " cancel sucessfully")
+				send.send(email, emailpassword, target, ("\n" + datstr + ": cancel sucessfully" ))
 				break
 			n-=1
 		if(n == 0):
 			break
 		elems = driver.find_elements_by_class_name('reservation-info')
-	print("cancellation success")
+
+	logging.info(str(threading.current_thread()) + "cancellation script done")
 	driver.quit()
-
-
-cancel()
-
