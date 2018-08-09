@@ -12,7 +12,7 @@ import datetime
 import send
 import logging
 
-logging.basicConfig(filename='tennis.log',level=logging.INFO)
+logging.basicConfig(filename='tennis.log',level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s')
 
 def fillform(id, value, driver):
 	elem = driver.find_element_by_id(id)
