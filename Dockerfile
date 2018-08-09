@@ -6,8 +6,8 @@ RUN apt-get -yqq update && \
     apt-get -yqq install curl unzip
 
 # Set the timezone.
-RUN echo "America/New_York" > /etc/timezone
-RUN dpkg-reconfigure -f noninteractive tzdata
+RUN cp /usr/share/zoneinfo/US/Eastern /etc/localtime
+RUN echo "US/Eastern" > /etc/timezone
 
 # Install Google Chrome
 RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
