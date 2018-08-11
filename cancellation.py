@@ -83,8 +83,8 @@ def cancel():
 						submit = driver.find_element_by_id('cancel-resv-btn')
 						submit.submit()
 						break
-				logging.info(str(threading.current_thread()) +  datstr + " cancel sucessfully")
-				send.send(email, emailpassword, target, ("\n" + datstr + ": cancel sucessfully" ))
+				logging.info(str(threading.current_thread()) +  datestr + " cancel sucessfully")
+				send.send(email, emailpassword, target, ("\n" + datestr + ": cancel sucessfully" ))
 				break
 			n-=1
 		if(n == 0):
