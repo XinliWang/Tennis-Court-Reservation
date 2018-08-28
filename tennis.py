@@ -103,10 +103,12 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	court = 1 if reserveid == 10 or reserveid == 11 else 2
 	if(len(success) == 1):
 		logging.info(str(threading.current_thread()) + " court " + str(court) + ": " + starttime + " " + endtime + " not available")
-		send.send(email, emailpassword, target, ("\n" + str(tomorrow) + " court " + str(court) + ": " + starttime + " " + endtime + " not available"))
+		if(email != ''):
+			send.send(email, emailpassword, target, ("\n" + str(tomorrow) + " court " + str(court) + ": " + starttime + " " + endtime + " not available"))
 	else:
 		logging.info(str(threading.current_thread()) + " court " + str(court) + ": " + starttime + " " + endtime + " reserved")
-		send.send(email, emailpassword, target, ("\n" + str(tomorrow) + " court " + str(court) + ": " + starttime + " " + endtime + " reserved"))
+		if(email != ''):
+			send.send(email, emailpassword, target, ("\n" + str(tomorrow) + " court " + str(court) + ": " + starttime + " " + endtime + " reserved"))
 	driver.quit()
 
 

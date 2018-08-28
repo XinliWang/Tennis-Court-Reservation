@@ -84,7 +84,8 @@ def cancel():
 						submit.submit()
 						break
 				logging.info(str(threading.current_thread()) +  datestr + " cancel sucessfully")
-				send.send(email, emailpassword, target, ("\n" + datestr + ": cancel sucessfully" ))
+				if(email != ''):
+					send.send(email, emailpassword, target, ("\n" + datestr + ": cancel sucessfully" ))
 				break
 			n-=1
 		if(n == 0):
