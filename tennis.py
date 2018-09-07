@@ -2,13 +2,46 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoSuchElementException        
+from selenium.common.exceptions import NoSuchElementException
 
 from selenium.webdriver.support.ui import Select
 import threading
+from apscheduler.schedulers.background import BackgroundScheduler
+import datetime
 
 import time
 import datetime
+
+
+# class PeriodicJob:
+#     def __init__(self, app):
+#         self.app = app
+#         with app.app_context():
+#             # ensure scheduler only runs in child process not main process as well
+#             if not app.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+#                 scheduler = BackgroundScheduler()
+# 				# method is trigger everyday at 12:01 am
+#                 scheduler.add_job(self.printTest,
+#                                   'cron',
+# 								  day_of_week='mon-sun',
+# 								  hour=18, minute=52,
+# 								  end_date='2018-10-30'
+#                                   )
+#                 scheduler.start()
+#
+#     def printTest():
+# 		print ("time:")
+
+
+scheduler = BackgroundScheduler()
+# method is trigger everyday at 12:01 am
+scheduler.add_job(self.printTest,
+				  'cron',
+				  day_of_week='mon-sun',
+				  hour=19, minute=5,
+				  end_date='2018-10-30'
+				  )
+scheduler.start()
 
 def fillform(id, value, driver):
 	elem = driver.find_element_by_id(id)
@@ -16,7 +49,7 @@ def fillform(id, value, driver):
 	elem.send_keys(value)
 
 # def tabs(N, driver):
-# 	actions = ActionChains(driver) 
+# 	actions = ActionChains(driver)
 # 	actions.send_keys(Keys.TAB * N)
 # 	actions.perform()
 
@@ -73,42 +106,34 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	driver.quit()
 
 
-thread_list = []
+def runReserve():
+	thread_list = []
 
-tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+	tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
-weekno = tomorrow.weekday()
+	weekno = tomorrow.weekday()
 
-# datepickertag = 'ui-datepicker-week-end'
+	# datepickertag = 'ui-datepicker-week-end'
 
-if weekno < 5:
-<<<<<<< HEAD
-    # datepickertag = 'ui-state-default'
-    reserve(tomorrow, 10, '7:00 PM', '8:00 PM')
-    reserve(tomorrow, 12, '8:00 PM', '9:00 PM')
-else:
-	reserve(tomorrow, 11, '7:00 PM', '8:00 PM')
-	reserve(tomorrow, 13, '8:00 PM', '9:00 PM')
-=======
-    datepickertag = 'ui-state-default'
-    t = threading.Thread(target=reserve, args=(datepickertag, tomorrow, 10, '7:00 PM', '8:00 PM'))
-    thread_list.append(t)
-    t = threading.Thread(target=reserve, args=(datepickertag, tomorrow, 12, '8:00 PM', '9:00 PM'))
-    thread_list.append(t)
-    # reserve(datepickertag, tomorrow, 10, '7:00 PM', '8:00 PM')
-    # reserve(datepickertag, tomorrow, 12, '8:00 PM', '9:00 PM')
-else:
-	t = threading.Thread(target=reserve, args=(datepickertag, tomorrow, 11, '7:00 PM', '8:00 PM'))
-	thread_list.append(t)
-	t = threading.Thread(target=reserve, args=(datepickertag, tomorrow, 13, '8:00 PM', '9:00 PM'))
-	thread_list.append(t)	# reserve(datepickertag, tomorrow, 11, '7:00 PM', '8:00 PM')
-	# reserve(datepickertag, tomorrow, 13, '8:00 PM', '9:00 PM')
+	if weekno < 5:
+	    t = threading.Thread(target=reserve, args=(tomorrow, 10, '7:00 PM', '8:00 PM'))
+	    thread_list.append(t)
+	    t = threading.Thread(target=reserve, args=(tomorrow, 12, '8:00 PM', '9:00 PM'))
+	    thread_list.append(t)
+	    # reserve(tomorrow, 10, '7:00 PM', '8:00 PM')
+	    # reserve(tomorrow, 12, '8:00 PM', '9:00 PM')
+	else:
+		t = threading.Thread(target=reserve, args=(tomorrow, 11, '7:00 PM', '8:00 PM'))
+		thread_list.append(t)
+		t = threading.Thread(target=reserve, args=(tomorrow, 13, '8:00 PM', '9:00 PM'))
+		thread_list.append(t)
+		# reserve(tomorrow, 11, '7:00 PM', '8:00 PM')
+		# reserve(tomorrow, 13, '8:00 PM', '9:00 PM')
 
->>>>>>> ec3bc6a96c5ec3b590818c145a6f5384435a338f
+	for thread in thread_list:
+		thread.start()
+	for thread in thread_list:
+		thread.join()
 
-
-for thread in thread_list:
-	thread.start()
-for thread in thread_list:
-	thread.join()
-
+def printTest():
+	 print ("time:")
