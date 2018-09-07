@@ -1,7 +1,4 @@
 account.txt
 tennis/
-<<<<<<< HEAD
-=======
 *.pyc
 *.log
->>>>>>> e8f7e2f... ignore log files

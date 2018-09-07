@@ -140,21 +140,3 @@ def runReserve():
 		thread.start()
 	for thread in thread_list:
 		thread.join()
-
-def printTest():
-	 print "time:"
-
-scheduler = BackgroundScheduler()
-# method is trigger everyday at 12:01 am
-scheduler.add_job(runReserve,
-				  'cron',
-				  day_of_week='mon-sun',
-				  hour=20, minute=50,
-				  end_date='2018-10-30'
-				  )
-# scheduler.add_job(printTest,'interval', seconds=2)
-
-scheduler.start()
-
-# while True:
-#     time.sleep(1)
