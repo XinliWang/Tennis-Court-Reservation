@@ -29,6 +29,7 @@ RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RE
 RUN google-chrome --version
 RUN chromedriver -v
 RUN python --version
+RUN locale
 
 # Execute the application in /app directory
 ADD . /app
