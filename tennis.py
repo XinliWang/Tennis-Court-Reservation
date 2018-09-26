@@ -51,9 +51,9 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	# incognito mode
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_argument("--incognito")
-	# chrome_options.add_argument("--disable-dev-shm-usage")
-	# chrome_options.add_argument('--headless')
-	# chrome_options.add_argument('--no-sandbox')
+	chrome_options.add_argument("--disable-dev-shm-usage")
+	chrome_options.add_argument('--headless')
+	chrome_options.add_argument('--no-sandbox')
 
 	# open chrome
 	driver = webdriver.Chrome(chrome_options=chrome_options)
@@ -68,7 +68,7 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	submit.submit()
 	logging.info(str(threading.current_thread()) + " signin " + username + " successfully")
 
-	elems = driver.find_elements_by_id('reserve')
+	elems = driver.find_elements_by_id('reserve') 
 	elems[reserveid].click() # weekend # 10 court 1 11 weekend 12 court 2 13 weekend
 
 	elem = driver.find_element_by_id('resv-date')
