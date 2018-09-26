@@ -51,9 +51,9 @@ def reserve(tomorrow, reserveid, starttime, endtime):
 	# incognito mode
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_argument("--incognito")
-	chrome_options.add_argument("--disable-dev-shm-usage")
-	chrome_options.add_argument('--headless')
-	chrome_options.add_argument('--no-sandbox')
+	# chrome_options.add_argument("--disable-dev-shm-usage")
+	# chrome_options.add_argument('--headless')
+	# chrome_options.add_argument('--no-sandbox')
 
 	# open chrome
 	driver = webdriver.Chrome(chrome_options=chrome_options)
@@ -120,18 +120,17 @@ def runReserve():
 	weekno = tomorrow.weekday()
 
 	# datepickertag = 'ui-datepicker-week-end'
-
 	if weekno < 5:
-	    t = threading.Thread(target=reserve, args=(tomorrow, 10, '6:00 PM', '7:00 PM'))
+	    t = threading.Thread(target=reserve, args=(tomorrow, 9, '6:00 PM', '7:00 PM'))
 	    thread_list.append(t)
-	    t = threading.Thread(target=reserve, args=(tomorrow, 12, '5:00 PM', '6:00 PM'))
+	    t = threading.Thread(target=reserve, args=(tomorrow, 11, '5:00 PM', '6:00 PM'))
 	    thread_list.append(t)
 	    # reserve(tomorrow, 10, '7:00 PM', '8:00 PM')
 	    # reserve(tomorrow, 12, '8:00 PM', '9:00 PM')
 	else:
-		t = threading.Thread(target=reserve, args=(tomorrow, 11, '4:00 PM', '5:00 PM'))
+		t = threading.Thread(target=reserve, args=(tomorrow, 10, '4:00 PM', '5:00 PM'))
 		thread_list.append(t)
-		t = threading.Thread(target=reserve, args=(tomorrow, 13, '3:00 PM', '4:00 PM'))
+		t = threading.Thread(target=reserve, args=(tomorrow, 12, '3:00 PM', '4:00 PM'))
 		thread_list.append(t)
 		# reserve(tomorrow, 11, '7:00 PM', '8:00 PM')
 		# reserve(tomorrow, 13, '8:00 PM', '9:00 PM')
