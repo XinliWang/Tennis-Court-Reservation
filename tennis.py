@@ -128,9 +128,9 @@ def runReserve():
 	    # reserve(tomorrow, 10, '7:00 PM', '8:00 PM')
 	    # reserve(tomorrow, 12, '8:00 PM', '9:00 PM')
 	else:
-		t = threading.Thread(target=reserve, args=(tomorrow, 10, '4:00 PM', '5:00 PM'))
+		t = threading.Thread(target=reserve, args=(tomorrow, 10, '5:00 PM', '6:00 PM'))
 		thread_list.append(t)
-		t = threading.Thread(target=reserve, args=(tomorrow, 12, '3:00 PM', '4:00 PM'))
+		t = threading.Thread(target=reserve, args=(tomorrow, 12, '4:00 PM', '5:00 PM'))
 		thread_list.append(t)
 		# reserve(tomorrow, 11, '7:00 PM', '8:00 PM')
 		# reserve(tomorrow, 13, '8:00 PM', '9:00 PM')
